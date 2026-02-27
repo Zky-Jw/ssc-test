@@ -1,0 +1,137 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Quicksand:wght@300..700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    h1 {
+        @apply font-poppins font-bold text-7xl leading-tight;
+    }
+
+    h2 {
+        @apply font-poppins font-bold text-[32px] leading-snug;
+    }
+
+    h3 {
+        @apply font-poppins font-bold text-[22px] leading-relaxed;
+    }
+
+    h3 {
+        @apply font-poppins font-bold text-[22px] leading-relaxed;
+    }
+
+    h4 {
+        @apply font-poppins font-bold text-[15px] leading-normal;
+    }
+
+    p,
+    button {
+        @apply text-lg;
+    }
+
+    html,
+    * {
+        @apply font-poppins;
+        /* ini ngubah di banyak font ku komen dulu */
+        /* @apply text-[13px]; */
+    }
+
+    .bg-gradient-primary {
+        @apply bg-gradient-to-r from-tartiary-200 to-secondary-300;
+    }
+
+    .switch-status {
+        @apply relative shrink-0 w-[3.25rem] h-7 bg-gray-100 checked:bg-none checked:bg-primary-400 hover:checked:bg-primary-400 focus:checked:bg-primary-400 focus:ring-primary-400 rounded-full cursor-pointer transition-colors ease-in-out duration-200 border border-transparent ring-1 ring-transparent appearance-none before:inline-block before:w-6 before:h-6 before:bg-white checked:before:bg-white  before:translate-x-0 checked:before:translate-x-full before:shadow before:rounded-full before:transform before:ring-0 before:transition before:ease-in-out before:duration-200;
+    }
+
+    .btn-ssc-1-full {
+        @apply w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-primary-400 text-white hover:bg-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 transition-all text-base;
+    }
+
+    .btn-off-full {
+        @apply w-full py-3 px-4 inline-flex justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-gray-300 text-gray-500 italic focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2 transition-all text-base cursor-not-allowed;
+    }
+
+    .form-input-ssc {
+        @apply opacity-70 bg-gray-200  py-3 px-4 block w-full border-gray-200 rounded-md text-sm focus:border-primary-500 focus:ring-primary-500;
+    }
+
+    .hover-link-navbar {
+        @apply hover:before:absolute hover:before:bottom-0 hover:before:start-0 hover:before:-z-[1] hover:before:w-full hover:before:h-1 hover:before:bg-primary-300;
+    }
+
+    .bg-section-ssc {
+        background: rgba(109, 38, 60, 0.05);
+    }
+
+    .dropzone-container {
+        padding: 4rem;
+        background: #f7fafc;
+        border: 2px solid;
+        border-color: #ccced1;
+    }
+
+    .hidden-input {
+        opacity: 0;
+        overflow: hidden;
+        position: absolute;
+        width: 1px;
+        height: 1px;
+    }
+
+    .file-label {
+        font-size: 20px;
+        display: block;
+        cursor: pointer;
+    }
+
+    .preview-container {
+        display: flex;
+        margin-top: 2rem;
+    }
+
+    .preview-card {
+        display: flex;
+        border: 1px solid #a2a2a2;
+        padding: 5px;
+        margin-left: 5px;
+    }
+
+    .preview-img {
+        display: block;
+        margin: auto;
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 5px;
+        border: 1px solid #a2a2a2;
+        background-color: #a2a2a2;
+    }
+    .sort.asc:after {
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-top: 5px solid #000;
+        content: "";
+        position: relative;
+        top: 10px;
+        right: -5px;
+    }
+    .sort.desc:after {
+        width: 0;
+        height: 0;
+        border-left: 5px solid transparent;
+        border-right: 5px solid transparent;
+        border-bottom: 5px solid #000;
+        content: "";
+        position: relative;
+        top: -10px;
+        right: -5px;
+    }
+
+    .tooltip-ssc {
+        @apply opacity-0 transition-opacity inline-block absolute invisible z-10 py-1 px-2 bg-primary-400 text-xs rounded text-white;
+    }
+}
