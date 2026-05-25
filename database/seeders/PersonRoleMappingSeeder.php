@@ -62,7 +62,7 @@ class PersonRoleMappingSeeder extends Seeder
             ],
         ];
 
-        //PersonRoleMapping::insert($personRoleMapping);
+        PersonRoleMapping::insert($personRoleMapping);
 
         $path_mahasiswa = storage_path('app/seeds/250425_seeder_user_mahasiswa.xlsx');
         $path_pegawai = storage_path('app/seeds/210425_seeder_user_pegawai.xlsx');

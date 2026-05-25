@@ -96,6 +96,6 @@ class UnitPeopleSeeder extends Seeder
             ]);
         }
 
-        // UnitPeople::insert($unitPeople);
+        UnitPeople::insert($unitPeople);
     }
 }

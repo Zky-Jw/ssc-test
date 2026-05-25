@@ -98,7 +98,6 @@ class ServiceMappingSeederAdditional extends Seeder
                 'id' => $sid,
                 'service' => $a['name'],
                 'active' => 'Y',
-                'external_app' => 'N',
                 'createdby' => '999',
             ]);
 

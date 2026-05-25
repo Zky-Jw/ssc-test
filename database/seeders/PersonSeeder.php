@@ -92,7 +92,9 @@ class PersonSeeder extends Seeder
             ],
         ];
 
-        // Person::insert($person);
+       foreach ($person as $p) {
+    Person::create($p);
+}
 
         $path_mahasiswa = storage_path('app/seeds/250425_seeder_user_mahasiswa.xlsx');
         $path_pegawai = storage_path('app/seeds/210425_seeder_user_pegawai.xlsx');
@@ -136,5 +138,5 @@ class PersonSeeder extends Seeder
                                 'active' => $row[6],
                             ]);
                     }
-    }
+}
 }

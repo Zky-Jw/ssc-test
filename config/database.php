@@ -93,24 +93,17 @@ return [
             // 'trust_server_certificate' => env('DB_TRUST_SERVER_CERTIFICATE', 'false'),
         ],
 
-        'mongodb' => [
-            // 'driver' => 'mongodb',
-            // 'dsn' => env('DB_DSN_MONGO', 'mongodb+srv://ssc-root:januari55123@cluster0.b60oedm.mongodb.net/test?retryWrites=true&w=majority'),
-            // 'database' => env('DB_DATABASE_MONGO'),
-            'driver' => 'mongodb',
-            'host' => env('DB_HOST_MONGO', '127.0.0.1'),
-            'port' => env('DB_PORT_MONGO', 27017),
-            'dsn' => env('DB_DSN'),
-            'database' => env('DB_DATABASE_MONGO', 'forge'),
-            'username' => env('DB_USERNAME_MONGO', 'forge'),
-            'password' => env('DB_PASSWORD_MONGO', ''),
-            'options' => [
-                // here you can pass more settings to the Mongo Driver Manager
-                // see https://www.php.net/manual/en/mongodb-driver-manager.construct.php under "Uri Options" for a list of complete parameters that you can use
-
-                'database' => env('DB_AUTHENTICATION_DATABASE', 'admin'), // required with Mongo 3+
-            ],
+       'mongodb' => [
+        'driver' => 'mongodb',
+        'host' => env('DB_HOST_MONGO', '127.0.0.1'),
+        'port' => env('DB_PORT_MONGO', 27017),
+        'database' => env('DB_DATABASE_MONGO', 'ssc'),
+        'username' => env('DB_USERNAME_MONGO', ''),
+        'password' => env('DB_PASSWORD_MONGO', ''),
+        'options' => [
+            'database' => env('DB_AUTHENTICATION_DATABASE', 'admin'),
         ],
+    ],
 
     ],
 

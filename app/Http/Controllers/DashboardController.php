@@ -95,7 +95,13 @@ class DashboardController extends Controller
         $mulai = Carbon::create($tahun, 1, 1, 0, 0, 0, 'UTC');
         $berakhir = $mulai->copy()->addYear();
 
-        $ms = fn(Carbon $c) => new UTCDateTime((int) $c->valueOf());
+      // Gunakan pengecekan apakah class UTCDateTime ada atau tidak
+$ms = function(Carbon $c) {
+    if (class_exists('MongoDB\BSON\UTCDateTime')) {
+        return new \MongoDB\BSON\UTCDateTime((int) $c->valueOf());
+    }
+    return $c->toDateTimeString(); // Fallback jika driver belum jalan
+};
 
         $match = [
             'created_at' => [
@@ -114,16 +120,25 @@ class DashboardController extends Controller
             }
         }
 
-        $statistik = Ticket::raw(fn($col) => $col->aggregate([
-            ['$match' => $match],
-            [
-                '$group' => [
-                    '_id'   => ['$month' => '$created_at'],
-                    'total' => ['$sum' => 1],
-                ],
+      $statistik = Ticket::raw(function($col) use ($match) {
+    // Pastikan driver benar-benar terbaca di level runtime browser
+    if (!class_exists('MongoDB\BSON\UTCDateTime')) {
+        return [];
+    }
+
+    return $col->aggregate([
+        ['$match' => $match],
+        [
+            '$group' => [
+                // HATI-HATI: Jika created_at bukan objek BSON Date,
+                // operator $month akan error.
+                '_id'   => ['$month' => '$created_at'],
+                'total' => ['$sum' => 1],
             ],
-            ['$sort' => ['_id' => 1]],
-        ]))->collect();
+        ],
+        ['$sort' => ['_id' => 1]],
+    ]);
+})->collect();
 
         $data = array_fill(0, 12, 0);
 

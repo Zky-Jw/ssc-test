@@ -62,6 +62,9 @@ class UserSeeder extends Seeder
                 'password' => Hash::make("@adminKUG")
             ]
         ];
+       foreach ($users as $user) {
+        User::create($user);
+    }
 
         $path_mahasiswa = storage_path('app/seeds/250425_seeder_user_mahasiswa.xlsx');
         $path_pegawai = storage_path('app/seeds/210425_seeder_user_pegawai.xlsx');
