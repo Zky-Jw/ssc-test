@@ -119,7 +119,7 @@ class LoginRequest extends FormRequest
                     $exUser->username = $profile->user;
                     $exPerson->save();
 
-                    $newPerson = Person::where('person', $profile->fullname)->first();
+                    $newPerson = Person::where('per_id', $profile->user)->first();
 
                     $exUser->person_id = $newPerson->id;
                     $exUser->password = Hash::make($profile->numberid);
