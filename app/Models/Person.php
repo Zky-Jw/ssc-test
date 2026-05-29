@@ -7,6 +7,7 @@ use App\Models\PersonRoleMapping;
 use App\Models\UnitPeople;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Spatie\LaravelCipherSweet\Contracts\CipherSweetEncrypted;
 use Spatie\LaravelCipherSweet\Concerns\UsesCipherSweet;
 use ParagonIE\CipherSweet\Transformation\Lowercase;
@@ -16,6 +17,7 @@ use ParagonIE\CipherSweet\BlindIndex;
 class Person extends Model implements CipherSweetEncrypted
 {
     use HasFactory;
+    use HasUuids;
     use UsesCipherSweet;
 
     protected $primaryKey = 'id';
