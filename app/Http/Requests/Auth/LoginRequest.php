@@ -14,6 +14,7 @@ use App\Services\SatuService;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\DB;
 
 
 class LoginRequest extends FormRequest
@@ -126,8 +127,20 @@ class LoginRequest extends FormRequest
                     $exUser->save();
 
                     $roleId = $profile->studyprogram ? '101' : '102';
-                    $newPerson->roles()->syncWithoutDetaching([$roleId]);
-                }
+                    $existingRole = DB::table('person_role_mappings')
+                        ->where('person_id', $newPerson->id)
+                        ->first();
+
+                    if (!$existingRole) {
+                        DB::table('person_role_mappings')->insert([
+                            'person_id' => $newPerson->id,
+                            'role_id' => $roleId,
+                            'createdby' => $newPerson->id,
+                            'created_at' => now(),
+                            'updated_at' => now(),
+                        ]);
+                    }
+                    }
                 Auth::login($exUser, true);
             }
         }
