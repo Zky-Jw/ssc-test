@@ -32,7 +32,7 @@ class AppServiceProvider extends ServiceProvider
         Inertia::share('auth.user', function () {
             if (Auth::check()) {
                 $user = Auth::user();
-                $person = Person::find($user->person_id)->first();
+                $person = Person::find($user->person_id);
 
                 return [
                     'id'       => $person->id,
@@ -63,7 +63,7 @@ class AppServiceProvider extends ServiceProvider
                     'phone' => $person->per_phone,
                     'photo' => $person->per_photo,
                     'nim' => $person->per_num,
-                    'role_id' => $role->role_id ,
+                    'role_id' => $role?->role_id ?? null,
                     'unit_id' => $person->unitPeople?->unit->id
                 ];
             } else {
