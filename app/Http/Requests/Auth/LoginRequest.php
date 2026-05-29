@@ -68,9 +68,9 @@ class LoginRequest extends FormRequest
             $satuService = new SatuService;
             $login = $satuService->login($data);
 
-            if (isset($response->error)) {
+            if (isset($login->error)) {
                 throw ValidationException::withMessages([
-                    'username' => $response->error,
+                    'username' => $login->error,
                 ]);
             }
 
