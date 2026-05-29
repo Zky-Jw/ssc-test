@@ -48,6 +48,8 @@ trait ConsumeExternalService
     {
         try {
             $response = Http::withHeaders($headers)
+                ->timeout(15)
+                ->connectTimeout(10)
                 ->retry(3, 100, function (Exception $exception, PendingRequest $request) {
                     return $exception instanceof ConnectionException;
                 })
