@@ -72,7 +72,7 @@ class LoginRequest extends FormRequest
                 throw ValidationException::withMessages([
                     'username' => $login->error,
                 ]);
-            }
+}
 
             if (!isset($login->token)) {
                 RateLimiter::hit($this->throttleKey());
