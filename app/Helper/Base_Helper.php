@@ -192,11 +192,17 @@ function userdata($param)
     if ($param === 'userid') {
         return Auth::user()->id;
     }
-    $userdata = Person::findOrFail(Auth::user()->person_id)->toArray();
+    $person = Person::find(Auth::user()->person_id);
+
+    if (!$person) {
+        return null;
+    }
+
+    $userdata = $person->toArray();
     if (array_key_exists($param, $userdata)) {
         return $userdata[$param];
     } else {
-        return null; // or handle the case when the key does not exist
+        return null;
     }
 }
 //
@@ -269,4 +275,3 @@ function calculate_due_date($ticket): ?string
     // Gabungkan tanggal baru + waktu asli
     return $date->format('Y-m-d') . ' ' . $time;
 }
-
