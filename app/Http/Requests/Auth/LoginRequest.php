@@ -97,14 +97,48 @@ class LoginRequest extends FormRequest
                 $exPerson = Person::where('per_id', $profile->user)->first();
 
                 // Check user
-                if ($exUser) {
-                    $exUser->username = $profile->user;
-                    $exPerson->per_num = $profile->numberid;
-                    $exPerson->per_id = $profile->user;
-                    $exPerson->per_photo = $profile->photo;
-                    $exUser->save();
-                    $exPerson->save();
-                } else {
+                    if ($exUser) {
+                        $exUser->username = $profile->user;
+                        $exUser->save();
+
+                        if ($exPerson) {
+                            $exPerson->per_num = $profile->numberid;
+                            $exPerson->per_id = $profile->user;
+                            $exPerson->per_photo = $profile->photo;
+                            $exPerson->save();
+                        } else {
+                            $exPerson = new Person;
+                            $exPerson->person = $profile->fullname;
+                            $exPerson->per_num = $profile->numberid;
+                            $exPerson->per_id = $profile->user;
+                            $exPerson->per_phone = $profile->phone ?? '-';
+                            $exPerson->per_group = $profile->studyprogram ? "MAHASISWA" : "PEGAWAI";
+                            $exPerson->per_photo = $profile->photo;
+                            $exPerson->per_major = $profile->studyprogram;
+                            $exPerson->per_faculty = $profile->faculty;
+                            $exPerson->per_email = $profile->email ?? $profile->user . "@telkomuniversity.ac.id";
+                            $exPerson->save();
+
+                            $newPerson = Person::where('per_id', $profile->user)->first();
+                            $exUser->person_id = $newPerson->id;
+                            $exUser->save();
+
+                            $roleId = $profile->studyprogram ? '101' : '102';
+                            $existingRole = DB::table('person_role_mappings')
+                                ->where('person_id', $newPerson->id)
+                                ->first();
+
+                            if (!$existingRole) {
+                                DB::table('person_role_mappings')->insert([
+                                    'person_id' => $newPerson->id,
+                                    'role_id' => $roleId,
+                                    'createdby' => $newPerson->id,
+                                    'created_at' => now(),
+                                    'updated_at' => now(),
+                                ]);
+                            }
+                        }
+                    } else {
                     $exUser = new User;
                     $exPerson = new Person;
 
