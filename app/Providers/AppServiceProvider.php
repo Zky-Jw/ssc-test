@@ -12,17 +12,11 @@ use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
-    /**
-     * Register any application services.
-     */
     public function register(): void
     {
         //
     }
 
-    /**
-     * Bootstrap any application services.
-     */
     public function boot(): void
     {
         if ($this->app->environment('production')) {
@@ -34,10 +28,14 @@ class AppServiceProvider extends ServiceProvider
                 $user = Auth::user();
                 $person = Person::find($user->person_id);
 
+                if (!$person) {
+                    return ['id' => '0000-0000-0000', 'fullname' => 'TelUtizen', 'firstname' => 'TelUtizen'];
+                }
+
                 return [
                     'id'       => $person->id,
                     'fullname' => $person->person,
-                    'firstname' => explode($person->person)[0],
+                    'firstname' => explode(' ', $person->person)[0], // ← fix bug: explode butuh 2 argumen
                 ];
             }
             else{
@@ -53,6 +51,11 @@ class AppServiceProvider extends ServiceProvider
             if (Auth::check()) {
                 $user = Auth::user();
                 $person = Person::with('unitPeople.unit')->find($user->person_id);
+
+                if (!$person) {
+                    return ['id' => '0000-0000-0000'];
+                }
+
                 $role = PersonRoleMapping::where('person_id', $person->id)->first();
 
                 return [
