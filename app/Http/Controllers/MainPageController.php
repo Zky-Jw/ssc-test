@@ -56,15 +56,15 @@ class MainPageController extends Controller
                 ->get();
 
             foreach ($services as $j => $service) {
-                $data[$i]['services'][$j]['id'] = $j + 1;
-                $data[$i]['services'][$j]['uiid'] = $service->serviceid;
-                $data[$i]['services'][$j]['title'] = $service->service;
-                $data[$i]['services'][$j]['duration'] = $service->duration . " Hari Kerja";
-                $data[$i]['services'][$j]['active'] = $service->active;
-                $data[$i]['services'][$j]['external_app'] = $service->external_app;
-                $data[$i]['services'][$j]['inactive_reason'] = $service->inactive_reason;
-                $data[$i]['services'][$j]['description'] = $service->description;
-                $data[$i]['services'][$j]['requirement'] = $service->requirement;
+                $data[$i]['service'][$j]['id'] = $j + 1;
+                $data[$i]['service'][$j]['uiid'] = $service->serviceid;
+                $data[$i]['service'][$j]['title'] = $service->service;
+                $data[$i]['service'][$j]['duration'] = $service->duration . " Hari Kerja";
+                $data[$i]['service'][$j]['active'] = $service->active;
+                $data[$i]['service'][$j]['external_app'] = $service->external_app;
+                $data[$i]['service'][$j]['inactive_reason'] = $service->inactive_reason;
+                $data[$i]['service'][$j]['description'] = $service->description;
+                $data[$i]['service'][$j]['requirement'] = $service->requirement;
             }
         }
 
