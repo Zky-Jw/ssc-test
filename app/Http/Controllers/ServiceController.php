@@ -232,9 +232,17 @@ class ServiceController extends Controller
             ->where('service_mappings.service_id', $id)
             ->first();
 
+            if ($service === null) {
+        return response()->json([
+            'code' => 404,
+            'message' => 'Data layanan tidak ditemukan',
+            'data' => null,
+        ]);
+}
+
         $unit = $service->unit;
         $recipient = $service->person;
-        $supervisor = $service->unit->supervisor;
+        $supervisor = $service->unit->supervisor ?? null;
 
         $response = [
             'id' => $service->service_id,
@@ -260,23 +268,23 @@ class ServiceController extends Controller
             'unit_id' => $unit->id,
             'unit' => $unit->unit_name,
 
-            'recipient_id' => $recipient->id,
-            'recipient' => $recipient->person,
-            'recipient_phone' => $recipient->per_phone,
-            'recipient_email' => $recipient->per_email,
+            'recipient_id' => $recipient->id ?? null,
+            'recipient' => $recipient->person ?? null,
+            'recipient_phone' => $recipient->per_phone ?? null,
+            'recipient_email' => $recipient->per_email ?? null,
 
             'supervisor_id' => $supervisor->id ?? null,
             'supervisor' => $supervisor->person ?? null,
         ];
 
 
-        if ($service === null) {
-            return response()->json([
-                'code' => 404,
-                'message' => 'Data layanan tidak ditemukan',
-                'data' => $service,
-            ]);
-        }
+        // if ($service === null) {
+        //     return response()->json([
+        //         'code' => 404,
+        //         'message' => 'Data layanan tidak ditemukan',
+        //         'data' => $service,
+        //     ]);
+        // }
 
         // change unit name using helper toTitle
         $service->unit = toTitle($service->unit);
