@@ -546,8 +546,11 @@ class TicketController extends Controller
             return redirect()->route('ticket.index')->with('success', 'Ticket created successfully.');
 
         } catch (\Throwable $th) {
-            // Log error untuk debugging
-            Log::error('Gagal membuat tiket: ' . $th->getMessage(), ['exception' => $th]);
+            Log::error('Gagal membuat tiket: ' . $th->getMessage(), [
+                'exception' => $th,
+                'trace' => $th->getTraceAsString(),
+                'request' => $request->except(['attachment']),
+            ]);
 
             // Redirect dengan pesan error
             if (userdata('role') == 101) {
