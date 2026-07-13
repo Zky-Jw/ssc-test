@@ -521,14 +521,21 @@ class TicketController extends Controller
                 }
 
                 // Memperbarui informasi kontak Person
-                $pelaksana = Person::findOrFail($request->recipient_id);
-                $pengguna = Person::findOrFail($request->creator_id);
-
-                $pelaksana->per_phone = $request->recipient_phone;
-                $pelaksana->save();
-
-                $pengguna->per_phone = $request->creator_phone;
-                $pengguna->save();
+                // Memperbarui informasi kontak Person
+                    if ($request->recipient_id) {
+                        $pelaksana = Person::find($request->recipient_id);
+                        if ($pelaksana) {
+                            $pelaksana->per_phone = $request->recipient_phone;
+                            $pelaksana->save();
+                        }
+                    }
+                    if ($request->creator_id) {
+                        $pengguna = Person::find($request->creator_id);
+                        if ($pengguna) {
+                            $pengguna->per_phone = $request->creator_phone;
+                            $pengguna->save();
+                        }
+                    }
             });
 
             if (userdata('role') == 101) {
@@ -732,14 +739,20 @@ class TicketController extends Controller
                 ]);
 
                 //Save nomor pengguna dan operator
-                $pelaksana = Person::findOrFail($request->recipient_id);
-                $pengguna = Person::where('per_num', $request->creator)->firstOrFail();
-
-                $pelaksana->per_phone = $request->recipient_phone;
-                $pelaksana->save();
-
-                $pengguna->per_phone = $request->creator_phone;
-                $pengguna->save();
+                if ($request->recipient_id) {
+                    $pelaksana = Person::find($request->recipient_id);
+                    if ($pelaksana) {
+                        $pelaksana->per_phone = $request->recipient_phone;
+                        $pelaksana->save();
+                    }
+                }
+                if ($request->creator) {
+                    $pengguna = Person::where('per_num', $request->creator)->first();
+                    if ($pengguna) {
+                        $pengguna->per_phone = $request->creator_phone;
+                        $pengguna->save();
+                    }
+                }
             });
             // if role is 101 redirect to riwayat-pengajuan
             if (in_array('101', userrole())) {
